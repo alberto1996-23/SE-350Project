@@ -18,4 +18,3 @@
 
 7. Where is the entry point to your project?
 	SE-350Project/src
-
