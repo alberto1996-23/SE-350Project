@@ -1,6 +1,6 @@
 <mxfile host="app.diagrams.net" pages="2">
   <diagram name="Page-1" id="5mJBuftfIq0Elg2xoIYN">
-    <mxGraphModel dx="985" dy="902" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1400" math="0" shadow="0">
+    <mxGraphModel dx="1422" dy="1302" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="850" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -157,21 +157,6 @@
         <mxCell id="OZU_swH3arMkKk2-2aYb-10" edge="1" parent="1" source="OZU_swH3arMkKk2-2aYb-6" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0;exitDx=0;exitDy=0;entryX=1.01;entryY=0.999;entryDx=0;entryDy=0;entryPerimeter=0;strokeWidth=3;dashed=1;endArrow=block;endFill=1;dashPattern=8 8;" target="FzdbB-uPEBB788RNsrOC-3">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="OZU_swH3arMkKk2-2aYb-52" edge="1" parent="1" source="OZU_swH3arMkKk2-2aYb-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.25;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeWidth=3;endArrow=none;endFill=0;" target="BN_nYqqoQRiBZgoFTV3J-22">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="OZU_swH3arMkKk2-2aYb-11" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="DeliveryOrderBuilder" vertex="1">
-          <mxGeometry height="60" width="230" x="120" y="1160" as="geometry" />
-        </mxCell>
-        <mxCell id="OZU_swH3arMkKk2-2aYb-12" parent="OZU_swH3arMkKk2-2aYb-11" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="- currentOrder : Order" vertex="1">
-          <mxGeometry height="26" width="230" y="26" as="geometry" />
-        </mxCell>
-        <mxCell id="OZU_swH3arMkKk2-2aYb-13" parent="OZU_swH3arMkKk2-2aYb-11" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
-          <mxGeometry height="8" width="230" y="52" as="geometry" />
-        </mxCell>
-        <mxCell id="OZU_swH3arMkKk2-2aYb-15" edge="1" parent="1" source="OZU_swH3arMkKk2-2aYb-11" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.75;exitY=0;exitDx=0;exitDy=0;entryX=0.7;entryY=1.011;entryDx=0;entryDy=0;entryPerimeter=0;endArrow=block;endFill=1;dashed=1;strokeWidth=3;dashPattern=8 8;" target="FzdbB-uPEBB788RNsrOC-3">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
         <mxCell id="OZU_swH3arMkKk2-2aYb-16" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=40;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="&amp;lt;&amp;lt; Interface &amp;gt;&amp;gt;&lt;div&gt;MenuFactory&lt;/div&gt;" vertex="1">
           <mxGeometry height="80" width="230" x="910" y="935" as="geometry" />
         </mxCell>
@@ -216,30 +201,6 @@
         </mxCell>
         <mxCell id="OZU_swH3arMkKk2-2aYb-36" parent="OZU_swH3arMkKk2-2aYb-34" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ create_items() : List&amp;lt;MenuItem&amp;gt;" vertex="1">
           <mxGeometry height="26" width="250" y="34" as="geometry" />
-        </mxCell>
-        <mxCell id="OZU_swH3arMkKk2-2aYb-37" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="SideFactory" vertex="1">
-          <mxGeometry height="60" width="250" x="1300" y="820" as="geometry" />
-        </mxCell>
-        <mxCell id="OZU_swH3arMkKk2-2aYb-38" parent="OZU_swH3arMkKk2-2aYb-37" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
-          <mxGeometry height="8" width="250" y="26" as="geometry" />
-        </mxCell>
-        <mxCell id="OZU_swH3arMkKk2-2aYb-39" parent="OZU_swH3arMkKk2-2aYb-37" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ create_items() : List&amp;lt;MenuItem&amp;gt;" vertex="1">
-          <mxGeometry height="26" width="250" y="34" as="geometry" />
-        </mxCell>
-        <mxCell id="OZU_swH3arMkKk2-2aYb-40" parent="1" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" value="Drink&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;Factory&lt;/span&gt;" vertex="1">
-          <mxGeometry height="60" width="250" x="1300" y="730" as="geometry" />
-        </mxCell>
-        <mxCell id="OZU_swH3arMkKk2-2aYb-41" parent="OZU_swH3arMkKk2-2aYb-40" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" value="" vertex="1">
-          <mxGeometry height="8" width="250" y="26" as="geometry" />
-        </mxCell>
-        <mxCell id="OZU_swH3arMkKk2-2aYb-42" parent="OZU_swH3arMkKk2-2aYb-40" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" value="+ create_items() : List&amp;lt;MenuItem&amp;gt;" vertex="1">
-          <mxGeometry height="26" width="250" y="34" as="geometry" />
-        </mxCell>
-        <mxCell id="OZU_swH3arMkKk2-2aYb-43" edge="1" parent="1" source="OZU_swH3arMkKk2-2aYb-42" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.938;entryY=0.009;entryDx=0;entryDy=0;entryPerimeter=0;dashed=1;strokeWidth=3;endArrow=block;endFill=1;dashPattern=8 8;" target="OZU_swH3arMkKk2-2aYb-16">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="OZU_swH3arMkKk2-2aYb-44" edge="1" parent="1" source="OZU_swH3arMkKk2-2aYb-39" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.25;entryDx=0;entryDy=0;strokeWidth=3;dashed=1;endArrow=block;endFill=1;dashPattern=8 8;" target="OZU_swH3arMkKk2-2aYb-16">
-          <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="OZU_swH3arMkKk2-2aYb-45" edge="1" parent="1" source="OZU_swH3arMkKk2-2aYb-36" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1.043;entryY=0.219;entryDx=0;entryDy=0;entryPerimeter=0;dashed=1;dashPattern=8 8;strokeWidth=3;endArrow=block;endFill=1;" target="OZU_swH3arMkKk2-2aYb-19">
           <mxGeometry relative="1" as="geometry" />
