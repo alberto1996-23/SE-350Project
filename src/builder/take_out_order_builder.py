@@ -4,12 +4,12 @@ from menu_item import MenuItem
 from builder.order_builder import OrderBuilder
 
 
-class DeliveryOrderBuilder(OrderBuilder):
+class TakeOutOrderBuilder(OrderBuilder):
     def __init__(self):
-        self.currentOrder = Order(1, "Delivery")
+        self.currentOrder = Order(1, "Takeout")
 
     def reset(self) -> None:
-        self.currentOrder = Order(1, "Delivery")
+        self.currentOrder = Order(1, "Takeout")
 
     def set_order_type(self, order_type: str) -> None:
         self.currentOrder.order_type = order_type
