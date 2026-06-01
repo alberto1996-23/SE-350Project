@@ -9,10 +9,10 @@ class Kitchen:
 
     def receive_order(self, order: Order) -> None:
         self.__active_orders.append(order)
-        order.update_status("In Kitchen")
+        order.send_to_kitchen()
 
     def prepare_order(self, order: Order) -> None:
-        order.update_status("Preparing")
+        order.prepare_order()
 
     def mark_order_ready(self, order: Order) -> None:
-        order.update_status("Ready")
+        order.mark_ready()
