@@ -11,7 +11,9 @@ from command.submit_order_command import SubmitOrderCommand
 from command.send_to_kitchen_command import SendToKitchenCommand
 from command.prepare_order_command import PrepareOrderCommand
 from command.mark_order_ready_command import MarkOrderReadyCommand
-
+from observer.customer_display import CustomerDisplay
+from observer.kitchen_display import KitchenDisplay
+from observer.cashier_display import CashierDisplay
 
 def main():
     menu = Menu()
@@ -28,6 +30,14 @@ def main():
     order = Order(1, "Dine-In")
     order.add_item(OrderItem(burger, 2))
     order.add_item(OrderItem(fries, 1))
+
+    customer_display = CustomerDisplay(order)
+    kitchen_display = KitchenDisplay(order)
+    cashier_display = CashierDisplay(order)
+
+    order.attach(customer_display)
+    order.attach(kitchen_display)
+    order.attach(cashier_display)
 
     controller.set_command(PlaceOrderCommand(restaurant_system, order))
     controller.run_command()

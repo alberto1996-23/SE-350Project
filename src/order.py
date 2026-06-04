@@ -3,6 +3,7 @@ from strategy.pricing_strategy import PricingStrategy
 from strategy.dine_in_strategy import DineInStrategy
 from state.new_order_state import NewOrderState
 from state.order_state import OrderState
+from observer.order_observer import OrderObserver
 
 class Order:
     def __init__(self, order_id: int, order_type: str, status: str = "New"):
@@ -12,6 +13,7 @@ class Order:
         self.__status = status
         self.__pricing_strategy: PricingStrategy = DineInStrategy()
         self.__state: OrderState = NewOrderState()
+        self.__observers: list[OrderObserver] = []
 
     @property
     def order_id(self) -> int:
@@ -46,6 +48,18 @@ class Order:
 
     def set_pricing_strategy(self, strategy: PricingStrategy) -> None:
         self.__pricing_strategy = strategy
+    
+    def attach(self, observer: OrderObserver) -> None:
+        if observer not in self.__observers:
+            self.__observers.append(observer)
+
+    def detach(self, observer: OrderObserver) -> None:
+        if observer in self.__observers:
+            self.__observers.remove(observer)
+
+    def notify_observers(self) -> None:
+        for observer in self.__observers:
+            observer.update(self)
 
     def calculate_total(self) -> float:
         return self.__pricing_strategy.calculate_total(self)
@@ -53,6 +67,7 @@ class Order:
     def change_state(self, new_state: OrderState) -> None:
         self.__state = new_state
         self.__status = new_state.get_status_name()
+        self.notify_observers()
 
     def submit_order(self) -> None:
         self.__state.submit(self)
