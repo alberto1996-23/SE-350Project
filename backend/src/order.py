@@ -1,10 +1,25 @@
 from backend.src.order_item import OrderItem
 from backend.src.strategy.pricing_strategy import PricingStrategy
 from backend.src.strategy.dine_in_strategy import DineInStrategy
+from backend.src.strategy.take_out_strategy import TakeOutStrategy
+from backend.src.strategy.delivery_strategy import DeliveryStrategy
 from backend.src.state.new_order_state import NewOrderState
 from backend.src.state.order_state import OrderState
 from backend.src.observer.order_observer import OrderObserver
 from datetime import datetime
+
+
+def get_pricing_strategy_for_order_type(order_type: str) -> PricingStrategy:
+    """I use this to pick the correct pricing strategy for a given order type."""
+    normalized_order_type = order_type.strip().lower()
+
+    if normalized_order_type in {"delivery"}:
+        return DeliveryStrategy()
+
+    if normalized_order_type in {"takeout", "take-out", "take out"}:
+        return TakeOutStrategy()
+
+    return DineInStrategy()
 
 class Order:
     def __init__(self, order_id: int, order_type: str, status: str = "New"):
@@ -13,7 +28,7 @@ class Order:
         self.__order_type = order_type
         self.__items: list[OrderItem] = []
         self.__status = status
-        self.__pricing_strategy: PricingStrategy = DineInStrategy()
+        self.__pricing_strategy: PricingStrategy = get_pricing_strategy_for_order_type(order_type)
         self.__state: OrderState = NewOrderState()
         self.__observers: list[OrderObserver] = []
         self.__submitted_at = None
@@ -32,6 +47,7 @@ class Order:
     def order_type(self, order_type: str) -> None:
         """I use this to update the order type when a builder changes it."""
         self.__order_type = order_type
+        self.__pricing_strategy = get_pricing_strategy_for_order_type(order_type)
 
     @property
     def items(self) -> list[OrderItem]:

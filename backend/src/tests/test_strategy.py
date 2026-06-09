@@ -3,10 +3,11 @@ from backend.src.order_item import OrderItem
 from backend.src.menu_item import MenuItem
 from backend.src.strategy.dine_in_strategy import DineInStrategy
 from backend.src.strategy.take_out_strategy import TakeOutStrategy
-from backend.src.strategy.delivery_strategy import DeliveryStrategy
+from backend.src.strategy.delivery_strategy import DeliveryStrategy, DELIVERY_FEE
+from backend.src.strategy.pricing_strategy import SALES_TAX_RATE
 
 def test_dine_in_strategy_calculates_total():
-    """I use this to confirm dine-in pricing just sums the subtotals."""
+    """I use this to confirm dine-in pricing adds sales tax to the subtotal."""
     order = Order(1, "Dine-In")
     order.set_pricing_strategy(DineInStrategy())
     burger = MenuItem("Pika Patty", "Burger", "Lunch", 5.00)
@@ -15,14 +16,25 @@ def test_dine_in_strategy_calculates_total():
     order.add_item(OrderItem(burger, 2))
     order.add_item(OrderItem(fries, 1))
 
-    assert order.calculate_total() == 12.00
+    assert order.calculate_total() == round(12.00 * (1 + SALES_TAX_RATE), 2)
+
+
+def test_take_out_strategy_calculates_total_with_sales_tax():
+    """I use this to confirm take-out pricing adds sales tax to the subtotal."""
+    order = Order(1, "Takeout")
+    order.set_pricing_strategy(TakeOutStrategy())
+    burger = MenuItem("Pika Patty", "Burger", "Lunch", 5.00)
+
+    order.add_item(OrderItem(burger, 2))
+
+    assert order.calculate_total() == round(10.00 * (1 + SALES_TAX_RATE), 2)
 
 def test_delivery_strategy_adds_fee():
-    """I use this to confirm delivery pricing adds the delivery fee."""
+    """I use this to confirm delivery pricing adds the delivery fee and sales tax."""
     order = Order(1, "Delivery")
     order.set_pricing_strategy(DeliveryStrategy())
     burger = MenuItem("Pika Patty", "Burger", "Lunch", 5.00)
 
     order.add_item(OrderItem(burger, 2))
 
-    assert order.calculate_total() == 13.50
+    assert order.calculate_total() == round((10.00 + DELIVERY_FEE) * (1 + SALES_TAX_RATE), 2)

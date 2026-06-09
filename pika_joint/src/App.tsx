@@ -18,6 +18,9 @@ type LocalOrderItem = {
   price: number
 }
 
+const SALES_TAX_RATE = 0.07
+const DELIVERY_FEE = 3.5
+
 function HomePage() {
   // I use this page to load the menu, manage the cart, and submit the order.
   const navigate = useNavigate()
@@ -95,7 +98,7 @@ function HomePage() {
   }
 
   function handleOrderTypeChange(type: string) {
-    // I use this to switch between dine-in and takeout before checkout.
+    // I use this to switch between dine-in, takeout, and delivery before checkout.
     setOrderType(type)
   }
 
@@ -129,7 +132,10 @@ function HomePage() {
     }
   }
 
-  const total = orderItems.reduce((sum, item) => sum + item.price * item.quantity, 0)
+  const subtotal = orderItems.reduce((sum, item) => sum + item.price * item.quantity, 0)
+  const salesTax = subtotal * SALES_TAX_RATE
+  const deliveryFee = orderType === 'Delivery' ? DELIVERY_FEE : 0
+  const total = subtotal + salesTax + deliveryFee
 
   if (loading) {
     return (
@@ -166,6 +172,9 @@ function HomePage() {
           <OrderPanel
             orderItems={orderItems}
             orderType={orderType}
+            subtotal={subtotal}
+            salesTax={salesTax}
+            deliveryFee={deliveryFee}
             total={total}
             isSubmitting={isSubmitting}
             onIncrease={handleIncrease}

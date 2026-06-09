@@ -1,2 +1,19 @@
 .DS_Store
 **/.DS_Store
+
+# Python
+.venv/
+venv/
+**/__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Node / frontend build output
+**/node_modules/
+**/dist/
+
+# Editor settings
+.vscode/
+
+# Local demo artifact
+demonstration_video.mp4

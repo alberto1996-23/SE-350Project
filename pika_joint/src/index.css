@@ -1,1 +1,58 @@
-...
+:root {
+  font-family: 'Trebuchet MS', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color: #2f2a24;
+  background-color: #f7f1e8;
+
+  --cream: #f7f1e8;
+  --soft-pink: #d99a9e;
+  --deep-green: #506f45;
+  --dark-text: #2f2a24;
+  --muted-text: #6a6259;
+  --card-bg: #fffaf4;
+  --border: rgba(47, 42, 36, 0.14);
+  --shadow: 0 10px 30px rgba(47, 42, 36, 0.08);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100%;
+  background: var(--cream);
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background:
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0)),
+    var(--cream);
+  color: var(--dark-text);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+#root {
+  min-height: 100vh;
+}

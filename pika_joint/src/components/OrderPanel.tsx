@@ -7,6 +7,9 @@ type LocalOrderItem = {
 type OrderPanelProps = {
   orderItems: LocalOrderItem[]
   orderType: string
+  subtotal: number
+  salesTax: number
+  deliveryFee: number
   total: number
   isSubmitting: boolean
   onIncrease: (name: string) => void
@@ -18,6 +21,9 @@ type OrderPanelProps = {
 function OrderPanel({
   orderItems,
   orderType,
+  subtotal,
+  salesTax,
+  deliveryFee,
   total,
   isSubmitting,
   onIncrease,
@@ -38,6 +44,7 @@ function OrderPanel({
         >
           <option value="Dine-In">Dine-In</option>
           <option value="Takeout">Takeout</option>
+          <option value="Delivery">Delivery</option>
         </select>
       </div>
 
@@ -65,6 +72,23 @@ function OrderPanel({
               </div>
             ))}
           </div>
+
+          <div className="order-total">
+            <span>Subtotal</span>
+            <span>${subtotal.toFixed(2)}</span>
+          </div>
+
+          <div className="order-total">
+            <span>Sales Tax</span>
+            <span>${salesTax.toFixed(2)}</span>
+          </div>
+
+          {deliveryFee > 0 && (
+            <div className="order-total">
+              <span>Delivery Fee</span>
+              <span>${deliveryFee.toFixed(2)}</span>
+            </div>
+          )}
 
           <div className="order-total">
             <span>Total</span>
