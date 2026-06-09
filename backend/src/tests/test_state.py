@@ -1,6 +1,7 @@
 from backend.src.order import Order
 
 def test_order_state_flow():
+    """I use this to confirm the order moves through each expected state in order."""
     order = Order(1, "Dine-In")
 
     assert order.status == "New"

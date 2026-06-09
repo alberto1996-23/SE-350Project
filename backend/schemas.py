@@ -15,8 +15,9 @@
 # OrderStatusResponse
 
 # Your backend routes should convert your real Python objects into these API-friendly shapes.
-from pydantic import BaseModel
 from typing import List
+
+from pydantic import BaseModel
 
 
 class MenuItemResponse(BaseModel):
@@ -47,6 +48,12 @@ class OrderItemResponse(BaseModel):
     subtotal: float
 
 
+class OrderStatusItemSchema(BaseModel):
+    name: str
+    quantity: int
+    subtotal: float
+
+
 class OrderResponse(BaseModel):
     order_id: int
     order_type: str
@@ -57,4 +64,7 @@ class OrderResponse(BaseModel):
 
 class OrderStatusResponse(BaseModel):
     order_id: int
+    order_type: str
     status: str
+    items: List[OrderStatusItemSchema]
+    total: float

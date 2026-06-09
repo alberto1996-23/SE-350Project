@@ -17,6 +17,7 @@ from backend.src.observer.kitchen_display import KitchenDisplay
 from backend.src.observer.cashier_display import CashierDisplay
 
 def test_full_order_flow(capsys):
+    """I use this to verify the whole order flow works from placement to ready."""
     menu = Menu()
     kitchen = Kitchen()
     system = RestaurantSystem(menu, kitchen)

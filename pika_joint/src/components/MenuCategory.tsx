@@ -1,5 +1,5 @@
 import MenuItemCard from './MenuItemCard'
-import type { MenuItem } from '../data/MenuData'
+import type { MenuItem } from '../types/api'
 
 type MenuCategoryProps = {
   title: string
@@ -8,10 +8,12 @@ type MenuCategoryProps = {
 }
 
 function MenuCategory({ title, items, onAddToOrder }: MenuCategoryProps) {
+  // I use this to render one menu section and all of its item cards.
   return (
     <section className="menu-category">
-      <h2>{title}</h2>
-      <div className="menu-grid">
+      <h2 className="menu-category-title">{title}</h2>
+
+      <div className="menu-items-grid">
         {items.map((item) => (
           <MenuItemCard
             key={item.name}

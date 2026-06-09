@@ -6,6 +6,7 @@ if TYPE_CHECKING:
 
 class DeliveryStrategy(PricingStrategy):
     def calculate_total(self, order: "Order") -> float:
+        """I use this to total a delivery order and add the delivery fee."""
         total = sum(item.get_subtotal() for item in order.items)
         delivery_fee = 3.50
         return total + delivery_fee

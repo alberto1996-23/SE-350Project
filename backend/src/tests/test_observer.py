@@ -4,6 +4,7 @@ from backend.src.observer.kitchen_display import KitchenDisplay
 from backend.src.observer.cashier_display import CashierDisplay
 
 def test_observers_are_notified_on_state_change(capsys):
+    """I use this to confirm every observer prints when the order state changes."""
     order = Order(1, "Dine-In")
 
     order.attach(CustomerDisplay(order))

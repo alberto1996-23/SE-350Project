@@ -5,6 +5,7 @@ from backend.src.factory.menu_factory import MenuCategoryFactory
 
 class LunchFactory(MenuCategoryFactory):
     def create_items(self) -> List[MenuItem]:
+        """I use this to build every lunch menu item."""
         return [
             MenuItem(
                 "Pika Patty",

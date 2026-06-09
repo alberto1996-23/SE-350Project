@@ -16,6 +16,7 @@ from backend.src.observer.kitchen_display import KitchenDisplay
 from backend.src.observer.cashier_display import CashierDisplay
 
 def main():
+    """I use this to run a full console demo of the restaurant workflow."""
     menu = Menu()
     kitchen = Kitchen()
     restaurant_system = RestaurantSystem(menu, kitchen)

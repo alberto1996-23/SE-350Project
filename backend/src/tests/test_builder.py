@@ -4,6 +4,7 @@ from backend.src.builder.delivery_builder import DeliveryOrderBuilder
 from backend.src.menu_item import MenuItem
 
 def test_dine_in_builder_builds_dine_in_order():
+    """I use this to prove the dine-in builder creates the right order shape."""
     builder = DineInOrderBuilder()
     burger = MenuItem("Pika Patty", "Burger", "Lunch", 5.00)
 
@@ -15,6 +16,7 @@ def test_dine_in_builder_builds_dine_in_order():
     assert order.items[0].quantity == 2
 
 def test_delivery_builder_uses_delivery_type():
+    """I use this to prove the delivery builder tags the order as delivery."""
     builder = DeliveryOrderBuilder()
     fries = MenuItem("Fries", "Side", "Side", 2.00)
 

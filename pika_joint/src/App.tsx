@@ -1,113 +1,204 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { Routes, Route, useNavigate, useParams } from 'react-router-dom'
 import './App.css'
+
 import Header from './components/Header'
 import MenuCategory from './components/MenuCategory'
 import OrderPanel from './components/OrderPanel'
-import { menuItems, type MenuItem } from './data/MenuData'
+import LoadingMessage from './components/LoadingMessage'
+import ErrorMessage from './components/ErrorMessage'
+import OrderStatusPage from './pages/OrderStatusPage'
 
-type OrderItem = {
+import { fetchMenu, createOrder, submitOrder } from './services/api'
+import type { MenuCategory as MenuCategoryType, MenuItem } from './types/api'
+
+type LocalOrderItem = {
   name: string
-  price: string
   quantity: number
+  price: number
 }
 
-function App() {
-  const [orderItems, setOrderItems] = useState<OrderItem[]>([])
-  const [orderType, setOrderType] = useState('Dine-In')
-  const [submitted, setSubmitted] = useState(false)
+function HomePage() {
+  // I use this page to load the menu, manage the cart, and submit the order.
+  const navigate = useNavigate()
 
-  const breakfastItems = menuItems.filter((item) => item.category === 'Breakfast')
-  const lunchItems = menuItems.filter((item) => item.category === 'Lunch')
-  const dinnerItems = menuItems.filter((item) => item.category === 'Dinner')
-  const dessertItems = menuItems.filter((item) => item.category === 'Dessert')
+  const [menuCategories, setMenuCategories] = useState<MenuCategoryType[]>([])
+  const [orderItems, setOrderItems] = useState<LocalOrderItem[]>([])
+  const [orderType, setOrderType] = useState('Dine-In')
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState('')
+  const [isSubmitting, setIsSubmitting] = useState(false)
+
+  useEffect(() => {
+    async function loadMenu() {
+      // I use this to pull the menu from the backend when the page first loads.
+      try {
+        setLoading(true)
+        setError('')
+        const data = await fetchMenu()
+        setMenuCategories(data)
+      } catch {
+        setError('Could not load menu from backend.')
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    loadMenu()
+  }, [])
 
   function handleAddToOrder(item: MenuItem) {
-    setSubmitted(false)
-
+    // I use this to add a menu item to the cart or bump its quantity if it is already there.
     setOrderItems((prevItems) => {
       const existingItem = prevItems.find((orderItem) => orderItem.name === item.name)
 
-      if (existingItem) {
-        return prevItems.map((orderItem) =>
-          orderItem.name === item.name
-            ? { ...orderItem, quantity: orderItem.quantity + 1 }
-            : orderItem
-        )
+      if (existingItem !== undefined) {
+        return prevItems.map((orderItem) => {
+          if (orderItem.name === item.name) {
+            return { ...orderItem, quantity: orderItem.quantity + 1 }
+          }
+
+          return orderItem
+        })
       }
 
-      return [...prevItems, { name: item.name, price: item.price, quantity: 1 }]
+      return [...prevItems, { name: item.name, quantity: 1, price: item.price }]
     })
   }
 
   function handleIncrease(name: string) {
-    setSubmitted(false)
-
+    // I use this to increase the quantity for one item in the cart.
     setOrderItems((prevItems) =>
-      prevItems.map((item) =>
-        item.name === name ? { ...item, quantity: item.quantity + 1 } : item
-      )
+      prevItems.map((item) => {
+        if (item.name === name) {
+          return { ...item, quantity: item.quantity + 1 }
+        }
+
+        return item
+      }),
     )
   }
 
   function handleDecrease(name: string) {
-    setSubmitted(false)
-
+    // I use this to decrease the quantity for one item and remove it if it hits zero.
     setOrderItems((prevItems) =>
       prevItems
-        .map((item) =>
-          item.name === name ? { ...item, quantity: item.quantity - 1 } : item
-        )
-        .filter((item) => item.quantity > 0)
+        .map((item) => {
+          if (item.name === name) {
+            return { ...item, quantity: item.quantity - 1 }
+          }
+
+          return item
+        })
+        .filter((item) => item.quantity > 0),
     )
   }
 
   function handleOrderTypeChange(type: string) {
-    setSubmitted(false)
+    // I use this to switch between dine-in and takeout before checkout.
     setOrderType(type)
   }
 
-  function handleSubmitOrder() {
+  async function handleSubmitOrder() {
+    // I use this to create the order, submit it, and move the user to the status page.
     if (orderItems.length === 0) {
       return
     }
 
-    setSubmitted(true)
+    try {
+      setIsSubmitting(true)
+      setError('')
+
+      const payload = {
+        order_type: orderType,
+        items: orderItems.map((item) => ({
+          name: item.name,
+          quantity: item.quantity,
+        })),
+      }
+
+      const createdOrder = await createOrder(payload)
+      await submitOrder(createdOrder.order_id)
+
+      setOrderItems([])
+      navigate(`/status/${createdOrder.order_id}`)
+    } catch {
+      setError('Could not submit order.')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
-  function parsePrice(price: string): number {
-    const firstPrice = price.replace('$', '').split(' - ')[0]
-    return Number(firstPrice)
-  }
+  const total = orderItems.reduce((sum, item) => sum + item.price * item.quantity, 0)
 
-  const total = orderItems.reduce((sum, item) => {
-    return sum + parsePrice(item.price) * item.quantity
-  }, 0)
+  if (loading) {
+    return (
+      <div className="app-container">
+        <Header leftImage="/chef_pikachu.webp" rightImage="/chef_eevee.webp" />
+        <LoadingMessage message="Loading menu..." />
+      </div>
+    )
+  }
 
   return (
     <div className="app-container">
-      <Header />
+      <Header leftImage="/chef_pikachu.webp" rightImage="/chef_eevee.webp" />
+
+      {error !== '' && <ErrorMessage message={error} />}
 
       <div className="content-layout">
-        <main>
-          <MenuCategory title="Breakfast" items={breakfastItems} onAddToOrder={handleAddToOrder} />
-          <MenuCategory title="Lunch" items={lunchItems} onAddToOrder={handleAddToOrder} />
-          <MenuCategory title="Dinner" items={dinnerItems} onAddToOrder={handleAddToOrder} />
-          <MenuCategory title="Dessert" items={dessertItems} onAddToOrder={handleAddToOrder} />
+        <main className="menu-column">
+          <section className="menu-shell">
+            <h2 className="menu-title">Menu</h2>
+
+            {menuCategories.map((category) => (
+              <MenuCategory
+                key={category.category}
+                title={category.category}
+                items={category.items}
+                onAddToOrder={handleAddToOrder}
+              />
+            ))}
+          </section>
         </main>
 
-        <OrderPanel
-          orderItems={orderItems}
-          orderType={orderType}
-          total={total}
-          submitted={submitted}
-          onIncrease={handleIncrease}
-          onDecrease={handleDecrease}
-          onOrderTypeChange={handleOrderTypeChange}
-          onSubmitOrder={handleSubmitOrder}
-        />
+        <div className="order-column">
+          <OrderPanel
+            orderItems={orderItems}
+            orderType={orderType}
+            total={total}
+            isSubmitting={isSubmitting}
+            onIncrease={handleIncrease}
+            onDecrease={handleDecrease}
+            onOrderTypeChange={handleOrderTypeChange}
+            onSubmitOrder={handleSubmitOrder}
+          />
+        </div>
       </div>
     </div>
   )
+}
+
+function App() {
+  // I use this to define the main app routes.
+  return (
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+      <Route path="/status/:orderId" element={<StatusRouteWrapper />} />
+    </Routes>
+  )
+}
+
+function StatusRouteWrapper() {
+  // I use this to turn the route param into a number before handing it to the status page.
+  const params = useParams()
+  const orderId = Number(params.orderId)
+
+  if (Number.isNaN(orderId)) {
+    return <OrderStatusPage orderId={null} />
+  }
+
+  return <OrderStatusPage orderId={orderId} />
 }
 
 export default App

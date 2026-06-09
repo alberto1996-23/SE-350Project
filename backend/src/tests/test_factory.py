@@ -5,6 +5,7 @@ from backend.src.factory.dessert_factory import DessertFactory
 from backend.src.menu_item import MenuItem
 
 def test_breakfast_factory_creates_breakfast_items():
+    """I use this to confirm the breakfast factory returns breakfast menu items."""
     factory = BreakfastFactory()
     items = factory.create_items()
 
@@ -13,6 +14,7 @@ def test_breakfast_factory_creates_breakfast_items():
     assert all(item.category == "Breakfast" for item in items)
 
 def test_lunch_factory_creates_lunch_items():
+    """I use this to confirm the lunch factory returns lunch menu items."""
     factory = LunchFactory()
     items = factory.create_items()
 

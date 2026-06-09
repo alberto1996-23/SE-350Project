@@ -3,7 +3,9 @@ from backend.src.order import Order
 
 class MarkOrderReadyCommand(Command):
     def __init__(self, order: Order):
+        """I use this to remember which order should be marked ready."""
         self.__order = order
 
     def execute(self) -> None:
+        """I use this to trigger the order's ready transition."""
         self.__order.mark_ready()
